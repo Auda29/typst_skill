@@ -1,65 +1,103 @@
-# Typst Markup Skill
+# Pi Typst Skill
 
-`typst-markup` is a Codex/Coding Agent skill that makes Typst the preferred format for document-like artifacts. It helps agents write `.typ` files, convert Markdown-style documents to Typst, and avoid common Markdown habits that are invalid in Typst.
+`pi-typst-skill` is a [pi coding agent](https://pi.dev/) package that adds a `typst-markup` skill. It nudges pi to create document artifacts as Typst (`.typ`) instead of Markdown, and gives the agent compact syntax guidance for writing or converting Typst documents.
 
-The skill is intentionally small: the main `SKILL.md` defines agent behavior, while the Typst syntax details live in a separate reference file that agents can load only when needed.
+This is a skills-only package: it does not run extension code and has no runtime dependencies. The package is structured for `pi install`, npm publishing, and the [pi.dev package gallery](https://pi.dev/packages).
 
-## What It Does
+## Install
 
-- Prefer `.typ` files over `.md` files for reports, specs, papers, handouts, and other document artifacts.
-- Convert common Markdown constructs to idiomatic Typst.
-- Provide defaults for headings, lists, links, code blocks, tables, figures, labels, references, and math.
-- Encourage validation with `typst compile` when the Typst CLI is available.
-- Keep the skill usable for Codex and adaptable for other coding agents that support skill-like instruction bundles.
+Install from GitHub:
 
-## Repository Layout
+```sh
+pi install git:github.com/Auda29/typst_skill
+```
+
+Try it for a single session without installing permanently:
+
+```sh
+pi -e git:github.com/Auda29/typst_skill
+```
+
+If published to npm, install it like any other pi package:
+
+```sh
+pi install npm:pi-typst-skill
+```
+
+## Use
+
+Ask pi for Typst output explicitly:
 
 ```text
+Use $typst-markup to draft this technical report as a Typst document.
+```
+
+Typical prompts:
+
+```text
+Create a Typst project brief for this repository.
+```
+
+```text
+Convert README.md into a clean .typ handout.
+```
+
+```text
+Write the architecture notes as Typst instead of Markdown.
+```
+
+The skill tells pi to prefer `.typ` files for reports, specs, papers, handouts, and similar document artifacts, while still respecting existing project conventions.
+
+## Package Layout
+
+```text
+package.json
 typst-markup/
   SKILL.md
-  agents/
-    openai.yaml
   references/
     typst-cheatsheet.md
+  agents/
+    openai.yaml
 ```
 
-## Installation for Codex
+`package.json` declares the pi package:
 
-Clone this repository, then copy or symlink the `typst-markup` folder into your Codex skills directory.
-
-PowerShell example:
-
-```powershell
-git clone https://github.com/Auda29/typst_skill.git
-Copy-Item -Recurse .\typst_skill\typst-markup "$env:USERPROFILE\.codex\skills\typst-markup"
+```json
+{
+  "keywords": ["pi-package", "pi-skill"],
+  "pi": {
+    "skills": ["./typst-markup"]
+  }
+}
 ```
 
-After installation, invoke it explicitly:
+`typst-markup/SKILL.md` is the loaded skill instruction. `references/typst-cheatsheet.md` is loaded only when the agent needs syntax mappings or examples.
 
-```text
-Use $typst-markup to draft this report as a Typst document instead of Markdown.
+## What the Skill Covers
+
+- Typst as the default format for document artifacts.
+- Markdown-to-Typst conversion patterns.
+- Typst headings, lists, links, labels, references, tables, figures, code blocks, and math.
+- Validation with `typst compile` when the Typst CLI is installed.
+- Fallback behavior when the CLI is unavailable.
+
+## Typst CLI
+
+The skill works without local dependencies, but generated documents should be compiled when possible:
+
+```sh
+typst compile file.typ
 ```
 
-Or rely on implicit triggering for requests involving Typst, `.typ` files, Markdown-to-Typst conversion, or document artifacts that should be authored in Typst.
-
-## Installation for Other Coding Agents
-
-For agents without native Codex skill support, use the content of `typst-markup/SKILL.md` as the system or project instruction, and keep `typst-markup/references/typst-cheatsheet.md` available as an auxiliary reference.
-
-Recommended behavior:
-
-- Load `SKILL.md` for any task involving Typst or document artifacts.
-- Load `references/typst-cheatsheet.md` only when syntax examples or conversion mappings are needed.
-- Prefer writing final document artifacts to `.typ` files.
-
-## Requirements
-
-The skill itself has no runtime dependencies. To validate generated Typst documents locally, install the Typst CLI:
+On Windows:
 
 ```powershell
 winget install --id Typst.Typst
-typst compile file.typ
 ```
+
+## Codex Compatibility
+
+The `typst-markup` folder also follows the `SKILL.md` convention used by Codex-style skills. For Codex, copy or symlink that folder into the Codex skills directory.
 
 ## License
 

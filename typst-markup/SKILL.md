@@ -1,9 +1,23 @@
 ---
 name: typst-markup
-description: Write, convert, and review Typst markup for agent-generated documents. Use when the user asks for Typst, .typ files, replacing Markdown with Typst, creating reports, specs, handouts, papers, templates, or docs in Typst, converting Markdown documentation to Typst, or configuring coding agents to prefer Typst output instead of Markdown for document artifacts.
+description: Write, convert, and review Typst markup in pi coding agent and other coding-agent sessions. Use when the user asks for Typst, .typ files, replacing Markdown with Typst, creating reports, specs, handouts, papers, templates, or docs in Typst, converting Markdown documentation to Typst, packaging Typst guidance as a pi skill, or configuring coding agents to prefer Typst output instead of Markdown for document artifacts.
 ---
 
 # Typst Markup
+
+## Pi Package Context
+
+This skill is designed for pi coding agent packages. In pi, it is loaded from the package manifest in `package.json` via:
+
+```json
+{
+  "pi": {
+    "skills": ["./typst-markup"]
+  }
+}
+```
+
+When active in pi, favor creating or editing `.typ` files for document artifacts. Do not assume that a TypeScript extension is available; this package is a skills-only package unless the repository adds `extensions/` later.
 
 ## Operating Mode
 
