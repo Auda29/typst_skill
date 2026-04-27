@@ -1,0 +1,4 @@
+interface:
+  display_name: "Typst Markup"
+  short_description: "Write agent outputs in Typst markup"
+  default_prompt: "Use $typst-markup to draft a Typst document instead of Markdown."
