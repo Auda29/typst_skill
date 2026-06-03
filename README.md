@@ -1,3 +1,5 @@
+![Pi Typst Skill](logo.png)
+
 # Pi Typst Skill
 
 `pi-typst-skill` is a [pi coding agent](https://pi.dev/) package that adds a `typst-markup` skill. It nudges pi to create document artifacts as Typst (`.typ`) instead of Markdown, and gives the agent compact syntax guidance for writing or converting Typst documents.
